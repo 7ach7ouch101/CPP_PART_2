@@ -1,6 +1,6 @@
 NAME = Bureaucrat
-src = main.cpp Bureaucrat.cpp
-header = Bureaucrat.hpp
+src = main.cpp Bureaucrat.cpp Form.cpp
+header = Bureaucrat.hpp Form.hpp
 flags = -Wall -Wextra -Werror -std=c++98
 c = c++
 
