@@ -6,22 +6,27 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 07:55:54 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/20 04:42:35 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:22:04 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Bureaucrat.hpp"
 #include "Form.hpp"
 
 int main(void)
 {
-    Form t("test", 0 , 2 , 5);
-    // try
-    // {
-    //     Bureaucrat t(1, "test");
-    //     t.dec_Grade();
-    // }
-    // catch(std::exception& e)
-    // {
-    //     std::cerr << e.what() << '\n';
-    // }
+    try
+    {
+        Form t("test", false, 150, 150);
+        Bureaucrat b(20, "hassan");
+        //t.beSigned(b);
+        b.signForm(t);
+        
+    }
+    catch(std::exception& e)
+    {
+        std::cout << "TEST" << std::endl;
+        std::cerr << e.what() << '\n';
+    }
+    return (0);
 }

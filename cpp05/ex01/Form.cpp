@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 02:40:55 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/20 04:41:40 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:18:01 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 Form::Form(const std::string name, bool sign, const int grade_sign, const int grade_exe) : name(name), sign(false), grade_sign(grade_sign), grade_exe(grade_exe)
 {
+    std::cout << "constructor called" << std::endl;
     if(grade_sign < 1 || grade_exe < 1)
         throw GradeTooLowException();
     else if(grade_sign > 150|| grade_exe > 150)
         throw GradeTooHighException();
 }
 
-Form::Form()
+Form::Form() : name(NULL), sign(false), grade_sign(0), grade_exe(0)
 {
     std::cout << "Default constructor called" << std::endl;
 }
 
-// Form::Form(const Form &Form)
-// {
-//     std::cout << "Copy constructor called" << std::endl;
-//     (*this) = Form;
-// }
+Form::Form(const Form &Form) : name(NULL), sign(false), grade_sign(0), grade_exe(0)
+{
+    std::cout << "Copy constructor called" << std::endl;
+    (*this) = Form;
+}
 
 Form & Form::operator=(const Form &Form)
 {

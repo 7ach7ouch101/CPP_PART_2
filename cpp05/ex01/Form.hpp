@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 02:40:53 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/20 04:39:34 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:10:28 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define FORM_HPP
 
 #include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class Form
 {
@@ -26,7 +28,7 @@ class Form
         Form(const std::string name, bool sign, const int grade_sign, const int grade_exe);
         Form();
         ~Form();
-        //Form(const Form &Form);
+        Form(const Form &Form);
         Form & operator=(const Form &Form);
         const std::string getName() const;
         const bool getSign() const;
