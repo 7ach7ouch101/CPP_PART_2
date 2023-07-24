@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat()
 {
@@ -65,7 +65,7 @@ int Bureaucrat::getGrade()
     return (this->grade);
 }
 
-void    Bureaucrat::signForm(Form &form)
+void    Bureaucrat::signForm(AForm &form)
 {
     if(form.getSign() == true)
         std::cout << this->name << " signed " << form.getName() << std::endl;
