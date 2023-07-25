@@ -17,15 +17,15 @@ int main(void)
 {
     try
     {
-        Form t("test", false, 150, 150);
+        Form t("test", true, 100, 100);
+        Form d;
         Bureaucrat b(20, "hassan");
+        t.beSigned(b);
         //t.beSigned(b);
         b.signForm(t);
-        
     }
     catch(std::exception& e)
     {
-        std::cout << "TEST" << std::endl;
         std::cerr << e.what() << '\n';
     }
     return (0);

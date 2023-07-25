@@ -16,8 +16,11 @@ int main(void)
 {
     try
     {
-        Bureaucrat t(1, "test");
-        t.dec_Grade();
+        Bureaucrat t(1, "hassan");
+        Bureaucrat y;
+        y = t;
+        y.inc_Grade();
+        std::cout << y;
     }
     catch(std::exception& e)
     {

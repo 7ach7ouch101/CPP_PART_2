@@ -24,7 +24,7 @@ class Bureaucrat
 {
     private:
         std::string const name;
-        unsigned int grade;
+        unsigned    grade;
     public:
         void    signForm(Form &form);
         Bureaucrat(unsigned int grade, std::string name);
@@ -33,7 +33,7 @@ class Bureaucrat
         Bureaucrat(const Bureaucrat &Bureaucrat);
         Bureaucrat & operator=(const Bureaucrat &Bureaucrat);
         const std::string getName() const;
-        int getGrade();
+        unsigned getGrade() const;
         void    inc_Grade();
         void    dec_Grade();
         class GradeTooLowException : public std::exception
@@ -54,6 +54,6 @@ class Bureaucrat
         };
 };
 
-//needs << operator
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat);
 
 #endif

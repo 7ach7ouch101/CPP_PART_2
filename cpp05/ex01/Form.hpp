@@ -22,18 +22,18 @@ class Form
     private:
         const std::string name;
         bool sign;
-        const int grade_sign;
-        const int grade_exe;
+        const unsigned grade_sign;
+        const unsigned grade_exe;
     public:
         Form(const std::string name, bool sign, const int grade_sign, const int grade_exe);
         Form();
         ~Form();
-        Form(const Form &Form);
-        Form & operator=(const Form &Form);
+        Form(const Form &form);
+        Form & operator=(const Form &form);
         const std::string getName() const;
         const bool getSign() const;
-        const int getGradesign() const;
-        const int getGradeexe() const;
+        const unsigned getGradesign() const;
+        const unsigned getGradeexe() const;
         void    beSigned(Bureaucrat &bureaucrat);
         class GradeTooLowException : public std::exception
         {
@@ -52,5 +52,7 @@ class Form
                 }
         };
 };
+
+std::ostream& operator<<(std::ostream& os, const Form& form);
 
 #endif

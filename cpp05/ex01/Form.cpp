@@ -16,25 +16,26 @@ Form::Form(const std::string name, bool sign, const int grade_sign, const int gr
 {
     std::cout << "constructor called" << std::endl;
     if(grade_sign < 1 || grade_exe < 1)
-        throw GradeTooLowException();
-    else if(grade_sign > 150|| grade_exe > 150)
         throw GradeTooHighException();
+    else if(grade_sign > 150|| grade_exe > 150)
+        throw GradeTooLowException();
 }
 
-Form::Form() : name("Default"), sign(false), grade_sign(0), grade_exe(0)
+Form::Form() : name("Default"), sign(false), grade_sign(1), grade_exe(1)
 {
     std::cout << "Default constructor called" << std::endl;
 }
 
-Form::Form(const Form &Form)
+Form::Form(const Form &form) : name(name), sign(false), grade_sign(grade_sign), grade_exe(grade_exe)
 {
     std::cout << "Copy constructor called" << std::endl;
-    (*this) = Form;
+    (*this) = form;
 }
 
-Form & Form::operator=(const Form &Form)
+Form & Form::operator=(const Form &form)
 {
     std::cout << "Copy assignment operator called" << std::endl;
+    this->sign = form.sign;
     return (*this);
 }
 
@@ -48,12 +49,12 @@ const bool Form::getSign() const
     return (this->sign);
 }
 
-const int Form::getGradesign() const
+const unsigned Form::getGradesign() const
 {
     return (this->grade_sign);
 }
 
-const int Form::getGradeexe() const
+const unsigned Form::getGradeexe() const
 {
     return (this->grade_exe);
 }
@@ -64,6 +65,15 @@ void    Form::beSigned(Bureaucrat &bureaucrat)
         this->sign = true;
     else
         throw GradeTooLowException();
+}
+
+std::ostream& operator<<(std::ostream& os, const Form& form)
+{
+	if (form.getSign() == true)
+		os << "Form " << form.getName() << " is successfully signed !!\n";
+	else
+		os << "Form " << form.getName() << " is not signed !!\n";
+	return (os);
 }
 
 Form::~Form()
