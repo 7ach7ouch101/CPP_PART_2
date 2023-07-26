@@ -21,20 +21,21 @@ AForm::AForm(const std::string name, bool sign, const int grade_sign, const int 
         throw GradeTooHighException();
 }
 
-AForm::AForm() : name(NULL), sign(false), grade_sign(0), grade_exe(0)
+AForm::AForm() : name("Default"), sign(false), grade_sign(1), grade_exe(1)
 {
     std::cout << "Default constructor called" << std::endl;
 }
 
-AForm::AForm(const AForm &Form) : name(NULL), sign(false), grade_sign(0), grade_exe(0)
+AForm::AForm(const AForm &form) : name(name), sign(false), grade_sign(grade_sign), grade_exe(grade_exe)
 {
     std::cout << "Copy constructor called" << std::endl;
-    (*this) = Form;
+    (*this) = form;
 }
 
-AForm & AForm::operator=(const AForm &Form)
+AForm & AForm::operator=(const AForm &form)
 {
     std::cout << "Copy assignment operator called" << std::endl;
+    this->sign = form.sign;
     return (*this);
 }
 
