@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 22:15:01 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/31 05:42:33 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/31 05:51:25 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int ScalarConverter::detect_type(std::string s)
 {
     //check_char
-    if(s.length() == 1 && std::isprint(s[0]) && isalpha(s[0]))
+    if(s.length() == 1 && std::isprint(s[0]))
         return (0);
     //check_int
     for(int i = 0 ; s[i]; i++)
@@ -128,19 +128,20 @@ int detect_dot(std::string s)
 {
     for(int i = 0; s[i]; i++)
     {
+        if(s[i] == '.' && s[i + 1] != '0')
+            return (1);
         if(s[i] == '.' && s[i + 1] == '0')
         {
-            for(int i = 0; s[i]; i++)
+            while(s[i])
             {
                 if(s[i] != '0')
                     return (4);
+                i++;
             }
             return (3);
         }
         if(s[i] == '.' && s[i + 1] == 'f')
             return (2);
-        if(s[i] == '.')
-            return (1);
     }
     return (0);
 }
@@ -156,7 +157,7 @@ void    ScalarConverter::convert_to_float(std::string s)
         std::cout << "int: overflow occurus" << std::endl;
     else
         std::cout << "int: " << static_cast<int>(i) << std::endl;
-    if(detect_dot(s) == 1 || detect_dot(s) == 4 || detect_dot(s) == 3)
+    if(detect_dot(s) == 1)
     {
         if(detect_dot(s) == 2)
             std::cout << "float: " << i << ".0f" << std::endl;
