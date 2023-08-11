@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Span.hpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 01:31:09 by mmeziani          #+#    #+#             */
+/*   Updated: 2023/08/11 01:31:09 by mmeziani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SPAN_HPP
 #define SPAN_HPP
 
@@ -15,12 +27,12 @@ class Span
         Span();
         Span(unsigned int N);
         Span(const Span &c);
-        Span &operator=(const Span &c);
+        Span &operator=(const Span &span);
         ~Span();
 
         void addNumber(int num);
         int shortestSpan();
-        int longestSpan( );
+        int longestSpan();
         void addNumbers(std::vector<int>::iterator it, std::vector<int>::iterator it2);
 
         class FULL: public std::exception

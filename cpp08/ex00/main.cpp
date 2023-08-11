@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 03:06:20 by mmeziani          #+#    #+#             */
+/*   Updated: 2023/08/11 03:06:20 by mmeziani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "easyfind.hpp"
 
 int main(void)
@@ -11,7 +23,7 @@ int main(void)
 
     try
     {
-        int num = 100;
+        int num = 4;
         int ret = easyfind(v, num);
         std::cout << "Found element " << ret << std::endl;
     }

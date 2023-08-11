@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 01:31:04 by mmeziani          #+#    #+#             */
+/*   Updated: 2023/08/11 01:31:04 by mmeziani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Span.hpp"
 
 int main(void)
 {
     try
     {
-        Span sp = Span(5);
+        Span sp = Span(6);
         sp.addNumber(6);
         sp.addNumber(3);
         sp.addNumber(17);
@@ -18,7 +30,6 @@ int main(void)
         std::cout << e.what() << std::endl;
     }
 
-
     try
     {
         Span sp(5);
@@ -29,8 +40,8 @@ int main(void)
         vec.push_back(4);
         vec.push_back(5);
         sp.addNumbers(vec.begin(), vec.end());
-        std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
-        std::cout << "Longest span: " << sp.longestSpan() << std::endl;
+        std::cout << sp.shortestSpan() << std::endl;
+        std::cout << sp.longestSpan() << std::endl;
     }
     catch (std::exception &e)
     {

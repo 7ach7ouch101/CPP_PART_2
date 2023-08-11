@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Span.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 01:31:07 by mmeziani          #+#    #+#             */
+/*   Updated: 2023/08/11 01:31:07 by mmeziani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Span.hpp"
 #include <limits>
 
@@ -48,42 +60,38 @@ void Span::addNumber(int num)
 		throw Span::FULL();
 }
 
-int Span::shortestSpan( void )
+int Span::shortestSpan()
 {
-	int ret = 2147483647;
+	if(this->index == 1 || this->index == 0)
+		throw Nospancanbefound();
+	int ret = 0;
+
 	std::vector<int>::iterator it = this->v.begin();
 	std::vector<int>::iterator it2 = this->v.begin();
 	it2++;
 
-	if (this->index <= 1)
-		throw Span::Nospancanbefound();
-	while (it2 != this->v.end())
+	ret = std::abs((*it) - (*it2));
+
+	while(it != this->v.end())
 	{
-		if (std::abs(*it - *it2) < ret)
-			ret = std::abs(*it - *it2);
+		if(std::abs((*it) - (*it2)) < ret)
+			ret = std::abs((*it) - (*it2));
 		it2++;
 		it++;
 	}
+	
 	return (ret);
 }
 
-int Span::longestSpan( void )
+int Span::longestSpan()
 {
-	int ret = 0;
+	if(this->index == 1 || this->index == 0)
+		throw Nospancanbefound();
+	std::sort(this->v.begin(), this->v.end());
 	std::vector<int>::iterator it = this->v.begin();
-	std::vector<int>::iterator it2 = this->v.begin();
-	it2++;
-
-	if (this->index <= 1)
-		throw Span::Nospancanbefound();
-	while (it2 != this->v.end())
-	{
-		if (std::abs(*it - *it2) > ret)
-			ret = std::abs(*it - *it2);
-		it2++;
-		it++;
-	}
-	return (ret);
+	std::vector<int>::iterator it2 = this->v.end();
+	it2--;
+	return (std::abs((*it) - (*it2)));
 }
 
 void Span::addNumbers(std::vector<int>::iterator it, std::vector<int>::iterator it2)
