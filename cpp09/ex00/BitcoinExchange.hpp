@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 00:15:55 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/08/13 20:47:15 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/08/14 03:54:58 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ class Bitcoin
 {
     private:
         std::map<std::string, double>data;
-        std::map<std::string, double>input;
     public:
         int parse_data();
         int parse_input();
