@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 00:15:52 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/08/14 04:25:31 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/08/14 04:41:15 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,14 @@ int Bitcoin::check_date_and_value2(std::string s)
     if(y == std::string::npos)
         error++;
     std::string year = s.substr(0, y);
+    if(!((std::atof(year.c_str()) >= 2009) && (std::atof(year.c_str()) <= 2022)))
+        error++;
     size_t m = s.find('-', y);
     if(m == std::string::npos)
         error++;
     std::string month = s.substr((m + 1), 2);
+    if(!((std::atof(month.c_str()) >= 1) || (std::atof(month.c_str()) <= 12)))
+        error++;
     size_t d = s.find('-', (m + 1));
     if(d == std::string::npos)
         error++;
@@ -97,10 +101,10 @@ int Bitcoin::check_date_and_value2(std::string s)
         error++;
     std::string value = s.substr((v + 2), (s.length() - v));
     std::string in = (year + "-" + month + "-" + day);
+    // if(value.empty())
+    //     error++;
     if(error > 0)
         return (std::cout << "Error: bad input => " << in << std::endl, 1);
-    if(value.empty())
-        return (std::cout << "Error: missing values in input.txt" << std::endl, 0);
     if(((std::atof(year.c_str()) >= 2009) && (std::atof(year.c_str()) <= 2022))
         && ((std::atof(month.c_str()) >= 1) && (std::atof(month.c_str()) <= 12))
         && ((std::atof(day.c_str()) >= 1) && (std::atof(day.c_str()) <= 31)))
@@ -136,9 +140,8 @@ int Bitcoin::check_date_and_value2(std::string s)
             it--;
             std::cout << in << " => " << std::atof(value.c_str()) << " = " << (it->second * std::atof(value.c_str())) << std::endl;
         }
-        return (1);
     }
-    return (0);
+    return (1);
 }
 
 int Bitcoin::parse_input()
