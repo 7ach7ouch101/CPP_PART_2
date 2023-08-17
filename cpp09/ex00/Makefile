@@ -1,4 +1,4 @@
-NAME = BTC
+NAME = btc
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 RM = rm -f

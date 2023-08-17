@@ -6,64 +6,11 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 00:15:52 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/08/16 04:44:30 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:24:58 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-
-int Bitcoin::check_date_and_value(std::string s)
-{
-	int count = 0;
-	size_t y = s.find('-');
-	std::string year = s.substr(0, y);
-	size_t m = s.find('-', y);
-	std::string month = s.substr((m + 1), 2);
-	size_t d = s.find('-', (m + 1));
-	std::string day = s.substr((d + 1), 2);
-	size_t v = s.find(',',d);
-	std::string value = s.substr((v + 1), (s.length() - v));
-	if(((std::atof(year.c_str()) >= 2009) && (std::atof(year.c_str()) <= 2022))
-		&& ((std::atof(month.c_str()) >= 1) && (std::atof(month.c_str()) <= 12))
-		&& ((std::atof(day.c_str()) >= 1) && (std::atof(day.c_str()) <= 31)))
-	{
-		for(int i = 0; i < value.length(); i++)
-		{
-			if ((value[0] == '.' || value[(value.length() - 1)] == '.') || (value[i] <= '0' && value[i] >= '9') || (value[0] == '-'))
-				return (0);
-			if(value[i] == '.')
-				count++;
-			if(count > 1)
-				return (0);
-		}
-		this->data[year + '-' + month + '-' + day] = std::atof(value.c_str());
-		return (1);
-	}
-	return (0);
-}
-
-int Bitcoin::parse_data()
-{
-	std::ifstream file;
-	std::string s;
-	file.open("data.csv");
-	if(file)
-	{
-		std::getline(file, s);
-		while(std::getline(file, s))
-		{
-			if(check_date_and_value(s) == 0)
-			{
-				std::cout << "Error: missing values in data.csv" << std::endl;
-				return (0);
-			}
-		}
-	}
-	else
-		return (std::cout << "File does not exists" << std::endl, 0);
-	file.close();
-	return (1);
-}
 
 int	check_date(int year, int month, int day)
 {
@@ -85,12 +32,74 @@ int	check_date(int year, int month, int day)
 	return (1);
 }
 
+int Bitcoin::check_date_and_value(std::string s)
+{
+	int count = 0;
+	size_t y = s.find('-');
+	std::string year = s.substr(0, y);
+	size_t m = s.find('-', y);
+	std::string month = s.substr((m + 1), 2);
+	size_t d = s.find('-', (m + 1));
+	std::string day = s.substr((d + 1), 2);
+	size_t v = s.find(',',d);
+	std::string value = s.substr((v + 1), (s.length() - v));
+
+	int year_n = std::atof(year.c_str()) ;
+	int month_n = std::atof(month.c_str());
+	int day_n = std::atof(day.c_str());
+
+	if(check_date(year_n ,month_n , day_n) == 1)
+	{
+		for(size_t i = 0; i < value.length(); i++)
+		{
+			if ((value[0] == '.' || value[(value.length() - 1)] == '.') || (value[i] <= '0' && value[i] >= '9') || (value[0] == '-'))
+				return (0);
+			if(value[i] == '.')
+				count++;
+			if(count > 1)
+				return (0);
+		}
+		this->data[year + '-' + month + '-' + day] = std::atof(value.c_str());
+		return (1);
+	}
+	
+	return (0);
+}
+
+int Bitcoin::parse_data()
+{
+	std::ifstream file;
+	std::string s;
+	file.open("data.csv");
+	if(file)
+	{
+		std::getline(file, s);
+		if(s.empty())
+			return (std::cout << "File data is empty" << std::endl, 0);
+		while(std::getline(file, s))
+		{
+			while(s.length() == 0)
+				std::getline(file, s);
+			if(check_date_and_value(s) == 0)
+			{
+				std::cout << "Error: missing values in data.csv" << std::endl;
+				return (0);
+			}
+		}
+	}
+	else
+		return (std::cout << "File does not exists" << std::endl, 0);
+	file.close();
+	return (1);
+}
+
+
 int Bitcoin::check_date_and_value2(std::string s)
 {
 	int error = 0;
 	int year_n = 0;
 	int month_n = 0;
-	int day_n = 0;
+	int day_n = 0;	
 	int value_n = 0;
 	int count = 0;
 	int number = 0;
@@ -127,8 +136,6 @@ int Bitcoin::check_date_and_value2(std::string s)
 		if (!(s[v + 1]))
 			error++;
 		std::string value = s.substr((v + 1), (s.length() - v));
-		// if(value.length() == 0)
-		// 	error++;
 		if(std::atof(value.c_str()) != 0.0 && value.length() > 0)
 			value_n = std::atof(value.c_str());
 		else
@@ -136,7 +143,7 @@ int Bitcoin::check_date_and_value2(std::string s)
 		std::string in = (year + "-" + month + "-" + day);
 		if((check_date(year_n , month_n , day_n) == 0) || (error > 0))
 			return (std::cout << "Error: bad input => " << in << std::endl, 1);
-		for(int i = 0; i < value.length(); i++)
+		for(size_t i = 0; i < value.length(); i++)
 		{
 			if(value[i] == '-')
 				return (std::cout << "Error: not a positive number." << std::endl ,1);
@@ -145,14 +152,25 @@ int Bitcoin::check_date_and_value2(std::string s)
 			if(value[i] == '.')
 			{
 				count++;
+				if(count > 1)
+					return (std::cout << "Error: bad input => " << in << std::endl, 1);
 				continue ;
 			}
-			if(count > 1)
+			if ((!(value[i] >= '0' && value[i] <= '9')))
 				return (std::cout << "Error: bad input => " << in << std::endl, 1);
-			if ((value[0] == '.' || value[(value.length() - 1)] == '.') || ((!(value[i] >= '0' && value[i] <= '9'))))
+			if(number == 0)
+			{
+				while( (value[i] >= '0' && value[i] <= '9') || (value[i] == '.') )
+				{
+					i++;
+					number++;
+				}
+			}
+			else
+			{
+				std::cout << value << std::endl;
 				return (std::cout << "Error: bad input => " << in << std::endl, 1);
-			if(value[i] >= 0 && value[i] <= 9)
-				number++;
+			}
 		}
 		int value_int = std::atof(value.c_str());
 		if(value_int > 1000 || value_int < 0)
@@ -174,14 +192,24 @@ int Bitcoin::check_date_and_value2(std::string s)
 	return (1);
 }
 
-int Bitcoin::parse_input()
+int Bitcoin::parse_input(std::string argvv)
 {
 	std::ifstream file;
 	std::string s;
-	file.open("input.txt");
+	file.open(argvv);
 	if(file)
 	{
-		std::getline(file, s);
+		while(std::getline(file, s))
+		{
+			while(s.length() == 0)
+				std::getline(file, s);
+			if (!(s == "date | value"))
+				return (std::cout << "bad input in input.txt" << std::endl, 0);
+			else
+				break ;
+		}
+		if(s.empty())
+			return (std::cout << "File input is empty" << std::endl, 0);
 		while(std::getline(file, s))
 		{
 			while(s.length() == 0)
