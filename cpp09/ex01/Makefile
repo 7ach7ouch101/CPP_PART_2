@@ -8,7 +8,7 @@ OBJ = $(SRCS:.c=.o)
 $(NAME): $(OBJ) RPN.hpp
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.c philo.h
+%.o: %.c RPN.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)

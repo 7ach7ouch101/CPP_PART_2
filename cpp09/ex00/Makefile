@@ -8,7 +8,7 @@ OBJ = $(SRCS:.c=.o)
 $(NAME): $(OBJ) BitcoinExchange.hpp
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.c philo.h
+%.o: %.c BitcoinExchange.hhp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
