@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 22:24:19 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/25 02:32:20 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/27 01:02:04 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,19 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &obj
 PresidentialPardonForm	&PresidentialPardonForm::operator=(PresidentialPardonForm const &obj)
 {
     std::cout << "Copy assignment operator called" << std::endl;
+    this->target = obj.target;
     return *this;
+}
+
+const char* PresidentialPardonForm::isFormSigned::what() const throw()
+{
+    return "Form not signed.";
 }
 
 void PresidentialPardonForm::execute(const Bureaucrat& executor) const
 {
     if(( this->getSign()) == false) 
-        throw std::runtime_error("Form not signed.");
+        throw isFormSigned();
     if( (executor.getGrade()) > (this->getGradeexe()))
         throw GradeTooLowException();
 

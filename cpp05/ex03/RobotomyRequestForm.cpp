@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 22:24:23 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/25 02:29:05 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/27 01:01:46 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,19 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &obj)
 RobotomyRequestForm	&RobotomyRequestForm::operator=(RobotomyRequestForm const &obj)
 {
     std::cout << "Copy assignment operator called" << std::endl;
+    this->target = obj.target;
     return *this;
+}
+
+const char* RobotomyRequestForm::isFormSigned::what() const throw()
+{
+    return "Form not signed.";
 }
 
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const
 {
     if(( this->getSign()) == false) 
-        throw std::runtime_error("Form not signed.");
+        throw isFormSigned();
     if( (executor.getGrade()) > (this->getGradeexe()))
         throw GradeTooLowException();
     

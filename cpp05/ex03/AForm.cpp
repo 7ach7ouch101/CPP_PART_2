@@ -6,19 +6,20 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 02:40:55 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/25 01:20:03 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/27 00:55:29 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AForm.hpp"
 
-AForm::AForm(const std::string name, bool sign, const int grade_sign, const int grade_exe) : name(name), sign(false), grade_sign(grade_sign), grade_exe(grade_exe)
+AForm::AForm(const std::string name, bool sign, const int grade_sign, const int grade_exe) : name(name),grade_sign(grade_sign), grade_exe(grade_exe)
 {
+    sign = false;
     std::cout << "constructor called" << std::endl;
     if(grade_sign < 1 || grade_exe < 1)
-        throw GradeTooLowException();
-    else if(grade_sign > 150|| grade_exe > 150)
         throw GradeTooHighException();
+    else if(grade_sign > 150|| grade_exe > 150)
+        throw GradeTooLowException();
 }
 
 AForm::AForm() : name("Default"), sign(false), grade_sign(1), grade_exe(1)
@@ -26,7 +27,7 @@ AForm::AForm() : name("Default"), sign(false), grade_sign(1), grade_exe(1)
     std::cout << "Default constructor called" << std::endl;
 }
 
-AForm::AForm(const AForm &form) : name(name), sign(false), grade_sign(grade_sign), grade_exe(grade_exe)
+AForm::AForm(const AForm &form) : grade_sign(form.grade_sign), grade_exe(form.grade_exe)
 {
     std::cout << "Copy constructor called" << std::endl;
     (*this) = form;
@@ -39,22 +40,22 @@ AForm & AForm::operator=(const AForm &form)
     return (*this);
 }
 
-const std::string AForm::getName() const
+std::string AForm::getName() const
 {
     return (this->name);
 }
 
-const bool AForm::getSign() const
+bool AForm::getSign() const
 {
     return (this->sign);
 }
 
-const unsigned AForm::getGradesign() const
+unsigned AForm::getGradesign() const
 {
     return (this->grade_sign);
 }
 
-const unsigned AForm::getGradeexe() const
+unsigned AForm::getGradeexe() const
 {
     return (this->grade_exe);
 }
@@ -65,6 +66,16 @@ void    AForm::beSigned(Bureaucrat &bureaucrat)
         this->sign = true;
     else
         throw GradeTooLowException();
+}
+
+const char* AForm::GradeTooLowException::what() const throw()
+{
+    return "Grade is too Loww";
+}
+
+const char* AForm::GradeTooHighException::what() const throw()
+{
+    return "Grade is too High";
 }
 
 AForm::~AForm()

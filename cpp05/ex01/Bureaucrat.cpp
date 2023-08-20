@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 07:55:47 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/21 10:21:22 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:35:21 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ Bureaucrat::Bureaucrat()
     std::cout << "Default constructor called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &bureaucrat) : name(name)
+Bureaucrat::Bureaucrat(const Bureaucrat &bureaucrat) : name(bureaucrat.name)
 {
     std::cout << "Copy constructor called" << std::endl;
     (*this) = bureaucrat;
@@ -71,6 +71,16 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat)
 unsigned    Bureaucrat::getGrade() const
 {
     return (this->grade);
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw()
+{
+    return "Grade is too Loww";
+}
+
+const char* Bureaucrat::GradeTooHighException::what() const throw()
+{
+    return "Grade is too High";
 }
 
 void    Bureaucrat::signForm(Form &form)

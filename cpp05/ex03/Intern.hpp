@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Intern.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 22:39:45 by mmeziani          #+#    #+#             */
+/*   Updated: 2023/07/26 22:39:45 by mmeziani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef INTERN_HPP
 #define INTERN_HPP
 
@@ -15,10 +27,7 @@ class Intern
         class Fromnotfound : public std::exception
 		{
 			public:
-				const char* what() const throw()
-                {
-					return "Form not found";
-                }
+				const char* what() const throw();
 		};
 };
 

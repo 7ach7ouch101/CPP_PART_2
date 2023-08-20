@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 22:24:27 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/25 01:59:11 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/27 01:01:52 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,19 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &obj)
 ShrubberyCreationForm	&ShrubberyCreationForm::operator=(ShrubberyCreationForm const &obj)
 {
     std::cout << "Copy assignment operator called" << std::endl;
+    this->target = obj.target;
     return *this;
+}
+
+const char* ShrubberyCreationForm::isFormSigned::what() const throw()
+{
+    return "Form not signed.";
 }
 
 void ShrubberyCreationForm::execute(const Bureaucrat& executor) const
 {
     if(( this->getSign()) == false) 
-        throw std::runtime_error("Form not signed.");
+        throw isFormSigned();
     if( (executor.getGrade()) > (this->getGradeexe()) )
         throw GradeTooLowException();
 

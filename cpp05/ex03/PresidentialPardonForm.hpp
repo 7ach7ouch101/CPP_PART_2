@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 22:24:21 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/25 02:31:12 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/27 00:53:42 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,9 @@ class PresidentialPardonForm : public AForm
         PresidentialPardonForm &operator=(PresidentialPardonForm const &obj);
         ~PresidentialPardonForm();
         void execute(const Bureaucrat& executor) const;
+        class isFormSigned : public std::exception
+        {
+            public:
+                const char* what() const throw();
+        };
 };

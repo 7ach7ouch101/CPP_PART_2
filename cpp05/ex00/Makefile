@@ -7,7 +7,7 @@ c = c++
 all: $(NAME)
 
 $(NAME): $(src) $(header)
-	$(c)  $(src) -o $(NAME)
+	$(c) $(flags) $(src) -o $(NAME)
 
 clean:
 	rm -rf $(NAME)

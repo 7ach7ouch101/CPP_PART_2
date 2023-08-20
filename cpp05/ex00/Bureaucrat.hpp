@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 07:55:52 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/07/20 02:34:18 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:10:29 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,15 @@ class Bureaucrat
         class GradeTooLowException : public std::exception
         {
             public:
-                const char* what() const throw()
-                {
-                    return "Grade is too Loww";
-                }
+                const char* what() const throw();
         };
         class GradeTooHighException : public std::exception
         {
             public:
-                const char* what() const throw()
-                {
-                    return "Grade is too High";
-                }
+                const char* what() const throw();
         };
 };
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat);
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat); 
 
 #endif
