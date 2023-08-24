@@ -1,3 +1,0 @@
-data file empty
-data | file
-2011-01-03 | 111.2 6454 (prints error)
