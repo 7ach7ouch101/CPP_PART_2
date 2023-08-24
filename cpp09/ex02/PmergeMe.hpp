@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RPN.hpp                                            :+:      :+:    :+:   */
+/*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/16 02:07:07 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/08/19 01:17:29 by mmeziani         ###   ########.fr       */
+/*   Created: 2023/08/19 05:09:02 by mmeziani          #+#    #+#             */
+/*   Updated: 2023/08/19 11:43:43 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RPN_HPP
-#define RPN_HPP
+#ifndef PMERGEME_HPP
+#define PMERGEME_HPP
 
+#include <vector>
+#include <deque>
 #include <iostream>
-#include <stack>
+#include <iomanip>
+#include <sys/time.h>
+#include <unistd.h>
 
-class RPN
+class Pmerge
 {
     private:
-        std::stack<int> stack;
+        std::vector<std::pair<int, int> > vpr;
+        std::deque<std::pair<int, int> > vdq;
     public:
-        int    rpn(std::string s);
-        int   calculate(char op);
+        int parse(std::string s);
+        void sort_vector(std::vector<int> &vi);
+        void sort_deque(std::deque<int> &vi);
 };
 
 #endif

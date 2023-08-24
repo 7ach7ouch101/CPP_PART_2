@@ -2,13 +2,13 @@ NAME = RPN
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 RM = rm -f
-SRCS = RPN.cpp main.cpp
-OBJ = $(SRCS:.c=.o)
+SRCS = main.cpp RPN.cpp
+OBJ = $(SRCS:.cpp=.o)
 
-$(NAME): $(OBJ) RPN.hpp
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.c RPN.hpp
+%.o: %.cpp RPN.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)

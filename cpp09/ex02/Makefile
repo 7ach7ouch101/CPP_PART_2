@@ -1,14 +1,14 @@
-NAME = PERGE
+NAME = PmergeMe
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 RM = rm -f
-SRCS = main.cpp
-OBJ = $(SRCS:.c=.o)
+SRCS = main.cpp PmergeMe.cpp
+OBJ = $(SRCS:.cpp=.o)
 
-$(NAME): $(OBJ) RPN.hpp
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.c philo.h
+%.o: %.cpp PmergeMe.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)

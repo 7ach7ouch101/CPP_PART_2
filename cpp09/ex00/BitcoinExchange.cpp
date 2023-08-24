@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 00:15:52 by mmeziani          #+#    #+#             */
-/*   Updated: 2023/08/16 21:24:58 by mmeziani         ###   ########.fr       */
+/*   Updated: 2023/08/19 11:28:27 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	check_date(int year, int month, int day)
 {
+	if(year == 2009 && month == 1 && day == 1)
+		return (0);
 	if (year < 2009 || year > 2022)
 		return (0);
 	if (month < 1 || month > 12)
@@ -27,6 +29,28 @@ int	check_date(int year, int month, int day)
 	if(day == 31)
 	{
 		if( (month == 4) || (month == 6) || (month == 9) || (month == 11))
+			return (0);
+	}
+	return (1);
+}
+
+int	check_date_data(int year, int month, int day)
+{
+	if(year == 2009 && month == 1 && day == 1)
+		return (0);
+	if (year < 2009 || year > 2022)
+		return (0);
+	if (month < 1 || month > 12)
+		return (0);
+	if (day < 1 || day > 31)
+		return (0);
+	if( (month == 2) && (day > 29) )
+		return (0);
+	if( (month == 2) && (year % 4 != 0) && (day == 29))
+		return (0);
+	if(day == 31)
+	{
+		if((month == 4) || (month == 6) || (month == 9) || (month == 11))
 			return (0);
 	}
 	return (1);
@@ -48,7 +72,7 @@ int Bitcoin::check_date_and_value(std::string s)
 	int month_n = std::atof(month.c_str());
 	int day_n = std::atof(day.c_str());
 
-	if(check_date(year_n ,month_n , day_n) == 1)
+	if(check_date_data(year_n ,month_n , day_n) == 1)
 	{
 		for(size_t i = 0; i < value.length(); i++)
 		{
@@ -103,7 +127,11 @@ int Bitcoin::check_date_and_value2(std::string s)
 	int value_n = 0;
 	int count = 0;
 	int number = 0;
+	int i = 0;
 
+	while(s[i] == ' ' || s[i] == '\t')
+		i++;
+	s.erase(0, i);
 	if(s[4] == '-' && s[7] == '-')
 	{
 		size_t y = s.find('-');
@@ -144,33 +172,29 @@ int Bitcoin::check_date_and_value2(std::string s)
 		if((check_date(year_n , month_n , day_n) == 0) || (error > 0))
 			return (std::cout << "Error: bad input => " << in << std::endl, 1);
 		for(size_t i = 0; i < value.length(); i++)
-		{
+		{	
 			if(value[i] == '-')
 				return (std::cout << "Error: not a positive number." << std::endl ,1);
-			if(value[i] == ' ')
+			if(value[i] == ' ' || value[i] == '\t')
 				continue ;
-			if(value[i] == '.')
-			{
-				count++;
-				if(count > 1)
-					return (std::cout << "Error: bad input => " << in << std::endl, 1);
-				continue ;
-			}
 			if ((!(value[i] >= '0' && value[i] <= '9')))
 				return (std::cout << "Error: bad input => " << in << std::endl, 1);
 			if(number == 0)
 			{
-				while( (value[i] >= '0' && value[i] <= '9') || (value[i] == '.') )
+				while( (value[i] >= '0' && value[i] <= '9') || (value[i]  == '.'))
 				{
+					if(value[i] == '.')
+					{
+						count++;
+						if(count > 1)
+							return (std::cout << "Error: bad input => " << in << std::endl, 1);
+					}
 					i++;
 					number++;
 				}
 			}
 			else
-			{
-				std::cout << value << std::endl;
 				return (std::cout << "Error: bad input => " << in << std::endl, 1);
-			}
 		}
 		int value_int = std::atof(value.c_str());
 		if(value_int > 1000 || value_int < 0)
@@ -188,7 +212,6 @@ int Bitcoin::check_date_and_value2(std::string s)
 	}
 	else
 		return (std::cout << "Error: bad input => " << s << std::endl, 1);
-	
 	return (1);
 }
 
@@ -212,8 +235,9 @@ int Bitcoin::parse_input(std::string argvv)
 			return (std::cout << "File input is empty" << std::endl, 0);
 		while(std::getline(file, s))
 		{
-			while(s.length() == 0)
-				std::getline(file, s);
+
+			if(s.empty())
+				continue;
 			if(check_date_and_value2(s) == 0)
 				return (0);
 		}

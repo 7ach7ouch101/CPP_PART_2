@@ -2,13 +2,13 @@ NAME = btc
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 RM = rm -f
-SRCS = BitcoinExchange.cpp main.cpp
-OBJ = $(SRCS:.c=.o)
+SRCS = main.cpp BitcoinExchange.cpp
+OBJ = $(SRCS:.cpp=.o)
 
-$(NAME): $(OBJ) BitcoinExchange.hpp
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.c BitcoinExchange.hhp
+%.o: %.cpp BitcoinExchange.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
